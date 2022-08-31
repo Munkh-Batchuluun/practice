@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express') //express is creating backend server
 const cors = require('cors')
 const fs = require("fs")
 const { application } = require('express')
@@ -9,6 +9,7 @@ const data = JSON.parse(rawData)
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
 
 app.get('/api/units', (req, res) => {
     res.json(data.units)

@@ -2,11 +2,11 @@ import './App.css';
 import Unit from './component/Unit'
 import Form from './component/Form'
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import service from './service/service';
 
 function App() {
 
-  const data = [
+/*  const data = [
     {code: 'COMP1010', title:'Fundamentals of Computer Science', offering: ['S1', 'S2']},
     {code: 'COMP1750', title:'Introduction to Business Information Systems', offering: ['S1']},
     {code: 'COMP2110', title:'Web Technology', offering: ['S1', 'S2']},
@@ -15,35 +15,35 @@ function App() {
     {code: 'COMP3120', title:'Advanced Web Development', offering: ['S2']},
     {code: 'COMP3130', title:'Mobile Application Development', offering: ['S1']}
   ]
+*/
 
   const [units, setUnits] = useState([])
 
   const fetchUnits = () => {
-    axios.get("http://localhost:3001/api/units")
-    .then((response) => {
-      console.log("response: ", response)
-      setUnits(response.data)
+    service.getAll()
+    .then(obj => {
+      setUnits(obj)
     })
   }
 
   const addNewUnit = (newUnit) => {
-    axios.post("http://localhost:3001/api/units", newUnit)
-    .then((res) => {
-      setUnits([...units, res.data])
+    service.create(newUnit)
+    .then((obj) => {
+      setUnits([...units, obj])
     })
   }
 
   const deleteUnit = (unit) => {
     console.log("delete", unit)
-    axios.delete("http://localhost:3001/api/units/" + unit.id)
-    .then((response) => {
+    service.deleteObj(unit.id)
+    .then(() => {
       console.log("delete succeeded")
       // delete local copy
       const newUnits = units.filter(u => u.id !== unit.id)
       setUnits(newUnits)
     })
     .catch((error) => {
-      console.log("ERROR!")
+      console.log("ERROR!", error)
       // refresh the list of units from the server
       fetchUnits()
     })

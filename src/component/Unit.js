@@ -1,5 +1,3 @@
-
-
 const Unit = ({data, deleteFn}) => {
 
     const styleSheet = {
@@ -21,11 +19,12 @@ const Unit = ({data, deleteFn}) => {
 
     return(
         <table style={styleSheet}>
-            <tr>
-                <th>Code</th>
-                <th>Title</th>
-                <th>Offerings</th>
-            </tr>
+            <tbody>
+                <tr>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Offerings</th>
+                </tr>
             {data.map( unit =>
                 <tr key={unit.id}>
                     <td style={margin}>{unit.code}</td>
@@ -34,7 +33,7 @@ const Unit = ({data, deleteFn}) => {
                     <td><button style={buttonStyle} onClick={() => deleteFn(unit)}>Delete</button></td>
                 </tr>
             )}
-            
+            </tbody>
         </table>
     )
 }
