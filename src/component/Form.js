@@ -1,3 +1,4 @@
+import { reset } from 'nodemon';
 import React, {useState} from 'react';
 
 const Form = ({updateFn}) => {
@@ -35,7 +36,6 @@ const Form = ({updateFn}) => {
         console.log("Form Submitted", formInfo)
         updateFn(formInfo)
         setFromInfo(initialState)
-        
     }
 
     return(
